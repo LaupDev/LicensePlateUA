@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "License Plate UA"
-include ':app'
+include("app")
