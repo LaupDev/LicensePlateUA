@@ -14,7 +14,7 @@ data class OperationEntity(
     @ColumnInfo(name = "department")
     val department: String,
     @ColumnInfo(name = "is_last")
-    val isLast: Boolean, //TODO: Convert INTEGER  to Boolean
+    val isLast: Boolean,
     @ColumnInfo(name = "is_registered_to_company")
     val isRegisteredToCompany: Boolean,
     @ColumnInfo(name = "koatuu")
