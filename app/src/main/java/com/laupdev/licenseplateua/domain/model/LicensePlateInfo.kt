@@ -7,9 +7,8 @@ data class LicensePlateInfo(
     val carModel: String,
     val carModelYear: Int,
     val carPhotoUrl: String,
-    val operations: List<Operation>,
-    val region: Region,
-    val isCarStolen: Boolean,
-    val stolenDetails: Any, // TODO: Add stolenDetails
+    val operations: List<Operation>?,
+    val region: Region?,
+    val isCarStolen: Boolean?,
     val comments: List<Comment>?,
 )

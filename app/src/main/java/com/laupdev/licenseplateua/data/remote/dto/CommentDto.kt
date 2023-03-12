@@ -1,8 +1,7 @@
 package com.laupdev.licenseplateua.data.remote.dto
 
+import com.laupdev.licenseplateua.domain.model.Comment
 import com.squareup.moshi.Json
-
-// TODO: Add api
 
 data class CommentDto(
     @Json(name = "id") val id: Int?,
@@ -10,4 +9,12 @@ data class CommentDto(
     @Json(name = "text") val text: String?,
     @Json(name = "created_at") val createdAt: String?,
     @Json(name = "updated_at") val updatedAt: String?,
-)
+) {
+    fun toComment(): Comment =
+        Comment(
+            userName = userName ?: "",
+            text = text ?: "",
+            createdAt = createdAt ?: "",
+            updatedAt = updatedAt ?: "",
+        )
+}
