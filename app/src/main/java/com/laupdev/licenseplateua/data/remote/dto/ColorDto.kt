@@ -4,9 +4,9 @@ import com.laupdev.licenseplateua.domain.model.Color
 import com.squareup.moshi.Json
 
 data class ColorDto(
-    @Json(name = "ua") val nameUa: String?,
-    @Json(name = "ru") val nameRu: String?,
-    @Json(name = "slug") val nameSlug: String?,
+    @field:Json(name = "ua") val nameUa: String?,
+    @field:Json(name = "ru") val nameRu: String?,
+    @field:Json(name = "slug") val nameSlug: String?,
 ) {
     fun toColor(): Color =
         Color(

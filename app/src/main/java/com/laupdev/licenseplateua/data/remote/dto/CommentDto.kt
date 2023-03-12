@@ -4,11 +4,11 @@ import com.laupdev.licenseplateua.domain.model.Comment
 import com.squareup.moshi.Json
 
 data class CommentDto(
-    @Json(name = "id") val id: Int?,
-    @Json(name = "name") val userName: String?,
-    @Json(name = "text") val text: String?,
-    @Json(name = "created_at") val createdAt: String?,
-    @Json(name = "updated_at") val updatedAt: String?,
+    @field:Json(name = "id") val id: Int?,
+    @field:Json(name = "name") val userName: String?,
+    @field:Json(name = "text") val text: String?,
+    @field:Json(name = "created_at") val createdAt: String?,
+    @field:Json(name = "updated_at") val updatedAt: String?,
 ) {
     fun toComment(): Comment =
         Comment(
