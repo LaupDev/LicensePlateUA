@@ -12,7 +12,7 @@ class LicensePlateRepositoryImpl @Inject constructor(
 ) : LicensePlateRepository {
 
     override suspend fun getLicensePlateInfo(licensePlate: String): LicensePlateInfo {
-        TODO("Not yet implemented")
+        return api.getLicensePlateInfoByLicensePlate(licensePlate = licensePlate).toLicensePlateInfo()
     }
 
 }
