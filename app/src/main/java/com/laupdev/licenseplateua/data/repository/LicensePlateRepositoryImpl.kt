@@ -6,6 +6,7 @@ import com.laupdev.licenseplateua.domain.repository.LicensePlateRepository
 import com.laupdev.licenseplateua.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,14 +23,15 @@ class LicensePlateRepositoryImpl @Inject constructor(
                 val licensePlateInfo = licensePlateInfoResponse.body()?.toLicensePlateInfo()
 
                 if (licensePlateInfo == null) {
-                    emit(Resource.Error("License plate info is empty")) //TODO: Add to strings.xml
+                    emit(Resource.Error(exception = Exception("License plate info is empty")))
                 } else {
                     emit(Resource.Success(data = licensePlateInfo))
+                    emit(Resource.Loading(isLoading = false))
                 }
             } else {
-                val errorMessage = licensePlateInfoResponse.errorBody()?.string() ?: "Undefined error" //TODO: Add to strings.xml
+                val errorMessage = licensePlateInfoResponse.errorBody()?.string() ?: "Undefined error"
                 licensePlateInfoResponse.errorBody()?.close()
-                emit(Resource.Error(message = errorMessage))
+                emit(Resource.Error(exception = Exception(errorMessage))) //Todo: Handle all possible error codes
             }
         }
     }
