@@ -2,7 +2,7 @@ package com.laupdev.licenseplateua.data.repository
 
 import com.laupdev.licenseplateua.data.remote.LicensePlateApi
 import com.laupdev.licenseplateua.domain.model.LicensePlateInfo
-import com.laupdev.licenseplateua.domain.repository.LicensePlateRepository
+import com.laupdev.licenseplateua.domain.repository.LicensePlatesRepository
 import com.laupdev.licenseplateua.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,9 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LicensePlateRepositoryImpl @Inject constructor(
+class LicensePlatesRepositoryImpl @Inject constructor(
     private val api: LicensePlateApi
-) : LicensePlateRepository {
+) : LicensePlatesRepository {
 
     override fun getLicensePlateInfo(licensePlate: String): Flow<Resource<LicensePlateInfo>> {
         return flow {

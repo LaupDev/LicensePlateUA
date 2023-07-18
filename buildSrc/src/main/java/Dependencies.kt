@@ -3,14 +3,12 @@ object Dependencies {
     object AndroidX {
         const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
         const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleKtx}"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
 
         const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
         const val composeUiTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
         const val composeMaterial3 = "androidx.compose.material3:material3:${Versions.material}"
-
-        const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
-
 
         object Room {
             const val runtime = "androidx.room:room-runtime:${Versions.room}"

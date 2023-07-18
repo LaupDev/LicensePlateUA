@@ -53,15 +53,15 @@ kapt {
 }
 
 dependencies {
-    implementation (Dependencies.AndroidX.coreKtx)
-    implementation (Dependencies.AndroidX.lifecycleKtx)
     implementation (Dependencies.AndroidX.activityCompose)
     implementation (Dependencies.AndroidX.composeUi)
     implementation (Dependencies.AndroidX.composeUiTooling)
     implementation (Dependencies.AndroidX.composeMaterial3)
 
-    //Fragment
-    implementation (Dependencies.AndroidX.fragment)
+    //Ktx
+    implementation (Dependencies.AndroidX.coreKtx)
+    implementation (Dependencies.AndroidX.lifecycleKtx)
+    implementation (Dependencies.AndroidX.fragmentKtx)
 
     //Kotlin Coroutines
     implementation (Dependencies.Kotlin.kotlinCoroutines)

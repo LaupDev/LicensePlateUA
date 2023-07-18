@@ -7,10 +7,10 @@ object Versions {
     const val compose = "1.3.2"
     const val activityCompose = "1.6.1"
     const val material = "1.1.0-alpha03"
+    const val room = "2.4.3"
     const val coreKtx = "1.9.0"
     const val lifecycleKtx = "2.5.1"
-    const val room = "2.4.3"
-    const val fragment = "1.5.5"
+    const val fragmentKtx = "1.5.5"
 
     //Google
     const val hilt = "2.44"

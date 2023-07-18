@@ -1,7 +1,7 @@
 package com.laupdev.licenseplateua.di
 
-import com.laupdev.licenseplateua.data.repository.LicensePlateRepositoryImpl
-import com.laupdev.licenseplateua.domain.repository.LicensePlateRepository
+import com.laupdev.licenseplateua.data.repository.LicensePlatesRepositoryImpl
+import com.laupdev.licenseplateua.domain.repository.LicensePlatesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindLicensePlateRepository(
-        licensePlateRepositoryImpl: LicensePlateRepositoryImpl
-    ): LicensePlateRepository
+        licensePlateRepositoryImpl: LicensePlatesRepositoryImpl
+    ): LicensePlatesRepository
 
 }
