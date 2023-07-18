@@ -1,4 +1,4 @@
-package com.laupdev.licenseplateua.data.local
+package com.laupdev.licenseplateua.data.local.entities.license_plate
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
