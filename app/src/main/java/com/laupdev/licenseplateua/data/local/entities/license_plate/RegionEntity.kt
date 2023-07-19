@@ -11,6 +11,8 @@ import androidx.room.PrimaryKey
         Index(value = ["new_code"], unique = true)
     ]
 )
+// TODO: Add foreign keys
+// I will cache this date in later versions of the app
 data class RegionEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "region_id")

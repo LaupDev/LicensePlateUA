@@ -4,7 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "comments")
+@Entity(
+    tableName = "comments"
+)
+// TODO: Add foreign keys
+// I will cache this date in later versions of the app
 data class CommentEntity(
     @PrimaryKey
     @ColumnInfo(name = "comment_id")

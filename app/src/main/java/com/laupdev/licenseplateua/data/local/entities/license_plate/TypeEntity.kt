@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "regions")
+// TODO: Add foreign keys
+// I will cache this date in later versions of the app
 data class TypeEntity(
     @PrimaryKey
     @ColumnInfo(name = "type_id")

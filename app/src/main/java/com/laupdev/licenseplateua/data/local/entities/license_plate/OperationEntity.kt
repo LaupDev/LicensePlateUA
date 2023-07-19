@@ -2,9 +2,42 @@ package com.laupdev.licenseplateua.data.local.entities.license_plate
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Operations")
+@Entity(
+    tableName = "Operations",
+    foreignKeys = [
+        ForeignKey(
+            entity = LicensePlateInfoEntity::class,
+            parentColumns = ["license_plate_id"],
+            childColumns = ["license_plate_id"],
+            onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = OperationGroupEntity::class,
+            parentColumns = ["operation_group_id"],
+            childColumns = ["operation_group_id"]
+        ),
+        ForeignKey(
+            entity = TypeEntity::class,
+            parentColumns = ["type_id"],
+            childColumns = ["type_id"]
+        ),
+        ForeignKey(
+            entity = ColorEntity::class,
+            parentColumns = ["color_id"],
+            childColumns = ["color_id"]
+        )
+    ],
+    indices = [
+        Index(value = ["license_plate_id"]),
+        Index(value = ["operation_group_id"]),
+        Index(value = ["type_id"]),
+        Index(value = ["color_id"]),
+    ]
+)
 data class OperationEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "operation_id")
@@ -37,5 +70,4 @@ data class OperationEntity(
     val typeId: Int,
     @ColumnInfo(name = "operation_group_id")
     val operationGroupId: Int,
-
 )

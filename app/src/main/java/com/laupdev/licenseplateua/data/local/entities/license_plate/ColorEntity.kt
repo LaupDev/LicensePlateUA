@@ -11,6 +11,8 @@ import androidx.room.PrimaryKey
         Index(value = ["name_slug"], unique = true)
     ]
 )
+// TODO: Add foreign keys
+// I will cache this date in later versions of the app
 data class ColorEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "color_id")
