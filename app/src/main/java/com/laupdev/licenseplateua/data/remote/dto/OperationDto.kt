@@ -1,6 +1,5 @@
 package com.laupdev.licenseplateua.data.remote.dto
 
-import com.laupdev.licenseplateua.domain.model.Operation
 import com.squareup.moshi.Json
 
 data class OperationDto(
@@ -18,22 +17,4 @@ data class OperationDto(
     @field:Json(name = "registered_at") val registeredAt: String?,
     @field:Json(name = "vendor") val carVendor: String?,
     @field:Json(name = "vendor_slug") val carVendorSlug: String?,
-) {
-    fun toOperation(): Operation =
-        Operation(
-            address = address ?: "",
-            carColor = carColor?.toColor(),
-            department = department ?: "",
-            isLast = isLast,
-            isRegisteredToCompany = isRegisteredToCompany,
-            type = type?.toType(),
-            koatuu = koatuu ?: -1L,
-            carModel = carModel ?: "",
-            carModelYear = carModelYear ?: -1,
-            operationNote = operationNote?.toOperationNote(),
-            operationGroup = operationGroup?.toOperationGroup(),
-            registeredAt = registeredAt ?: "",
-            carVendor = carVendor ?: "",
-            carVendorSlug = carVendorSlug ?: ""
-        )
-}
+)

@@ -1,6 +1,5 @@
 package com.laupdev.licenseplateua.data.remote.dto
 
-import com.laupdev.licenseplateua.domain.model.LicensePlateInfo
 import com.squareup.moshi.Json
 
 data class LicensePlateInfoDto(
@@ -15,18 +14,4 @@ data class LicensePlateInfoDto(
     @field:Json(name = "is_stolen") val isCarStolen: Boolean?,
     @field:Json(name = "stolen_details") val stolenDetails: Any?, // TODO: Add stolenDetails
     @field:Json(name = "comments") val comments: List<CommentDto>?,
-) {
-    fun toLicensePlateInfo(): LicensePlateInfo =
-        LicensePlateInfo(
-            plateNumber = plateNumber ?: "",
-            vin = vin ?: "",
-            carVendor = carVendor ?: "",
-            carModel = carModel ?: "",
-            carModelYear = carModelYear ?: -1,
-            carPhotoUrl = carPhotoUrl ?: "",
-            operations = operations?.map { it.toOperation() },
-            region = region?.toRegion(),
-            isCarStolen = isCarStolen,
-            comments = comments?.map { it.toComment() }
-        )
-}
+)

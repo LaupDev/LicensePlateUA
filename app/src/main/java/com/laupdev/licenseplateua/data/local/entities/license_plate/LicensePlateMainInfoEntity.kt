@@ -22,9 +22,9 @@ data class LicensePlateMainInfoEntity(
     @ColumnInfo(name = "car_model")
     val carModel: String,
     @ColumnInfo(name = "car_model_year")
-    val carModelYear: Int,
+    val carModelYear: Int?,
     @ColumnInfo(name = "car_photo_url")
-    val carPhotoUrl: String,
+    val carPhotoUrl: String?,
     @ColumnInfo(name = "is_stolen")
-    val isCarStolen: Boolean
+    val isCarStolen: Boolean?
 )
