@@ -5,5 +5,5 @@ import com.laupdev.licenseplateua.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface GetLicensePlateInfoUseCase {
-    fun execute(licensePlate: String): Flow<Resource<LicensePlateInfo>>
+    operator fun invoke(licensePlate: String): Flow<Resource<LicensePlateInfo>>
 }

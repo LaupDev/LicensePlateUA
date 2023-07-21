@@ -1,14 +1,16 @@
 package com.laupdev.licenseplateua.data.repository
 
 import com.laupdev.licenseplateua.data.local.LicensePlatesDatabase
-import com.laupdev.licenseplateua.data.local.entities.license_plate.LicensePlateMainInfoEntity
 import com.laupdev.licenseplateua.data.mappers.toLicensePlateInfo
+import com.laupdev.licenseplateua.data.mappers.toLicensePlateMainInfo
 import com.laupdev.licenseplateua.data.mappers.toLicensePlateMainInfoEntity
 import com.laupdev.licenseplateua.data.remote.LicensePlateApi
 import com.laupdev.licenseplateua.domain.model.LicensePlateInfo
+import com.laupdev.licenseplateua.domain.model.LicensePlateMainInfo
 import com.laupdev.licenseplateua.domain.repository.LicensePlatesRepository
 import com.laupdev.licenseplateua.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,7 +33,7 @@ class LicensePlatesRepositoryImpl @Inject constructor(
                 } else {
                     emit(Resource.Success(data = licensePlateInfo))
                     licensePlatesDatabase.licensePlatesDao()
-                        .insertLicensePlate(licensePlateInfo = licensePlateInfo.toLicensePlateMainInfoEntity())
+                        .insertLicensePlate(licensePlateInfo = licensePlateInfo.toLicensePlateMainInfoEntity()) // TODO: Move caching out of this function
                     emit(Resource.Loading(isLoading = false))
                 }
             } else {
@@ -42,7 +44,7 @@ class LicensePlatesRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getLicensePlatesSearchHistory(): Flow<Resource<List<LicensePlateMainInfoEntity>>> {
+    override fun getLicensePlatesSearchHistory(): Flow<Resource<List<LicensePlateMainInfo>>> {
         return flow {
             emit(Resource.Loading(isLoading = true))
             licensePlatesDatabase.licensePlatesDao().getAllLicensePlates()
@@ -50,7 +52,7 @@ class LicensePlatesRepositoryImpl @Inject constructor(
                     emit(Resource.Error(exception = Exception(exception)))
                 }
                 .collect {
-                    emit(Resource.Success(it))
+                    emit(Resource.Success(it.map { licensePlateMainInfoEntity -> licensePlateMainInfoEntity.toLicensePlateMainInfo() }))
                 }
             emit(Resource.Loading(isLoading = false))
         }
