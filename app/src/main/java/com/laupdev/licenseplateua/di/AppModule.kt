@@ -1,9 +1,13 @@
 package com.laupdev.licenseplateua.di
 
+import android.content.Context
+import androidx.room.Room
+import com.laupdev.licenseplateua.data.local.LicensePlatesDatabase
 import com.laupdev.licenseplateua.data.remote.LicensePlateApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -35,6 +39,16 @@ object AppModule {
             .client(client)
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLicensePlatesDatabase(@ApplicationContext context: Context): LicensePlatesDatabase {
+        return Room.databaseBuilder(
+            context,
+            LicensePlatesDatabase::class.java,
+            "license_plates_db"
+        ).build()
     }
 
 }
