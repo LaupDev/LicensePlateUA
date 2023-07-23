@@ -14,6 +14,7 @@ object Versions {
 
     //Google
     const val hilt = "2.44"
+    const val hiltCompose = "1.0.0"
     const val ksp = "1.9.0-1.0.12"
 
     //Kotlin

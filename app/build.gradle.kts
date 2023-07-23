@@ -82,6 +82,7 @@ dependencies {
 
     //Hilt
     implementation(Dependencies.Google.hilt)
+    implementation(Dependencies.Google.hiltCompose)
     kapt(Dependencies.Google.hiltCompiler)
 
     //Navigation

@@ -19,6 +19,7 @@ object Dependencies {
 
     object Google {
         const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+        const val hiltCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltCompose}"
         const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
     }
 
