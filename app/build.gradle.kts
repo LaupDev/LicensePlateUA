@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -82,6 +83,10 @@ dependencies {
     //Hilt
     implementation(Dependencies.Google.hilt)
     kapt(Dependencies.Google.hiltCompiler)
+
+    //Navigation
+    implementation(Dependencies.Other.composeNavigation)
+    ksp(Dependencies.Other.composeNavigationKsp)
 
     testImplementation (Dependencies.Testing.jUnit)
     testImplementation (Dependencies.Testing.room)

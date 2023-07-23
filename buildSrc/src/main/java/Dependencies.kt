@@ -32,6 +32,8 @@ object Dependencies {
 
         const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 
+        const val composeNavigation = "io.github.raamcosta.compose-destinations:core:${Versions.composeNavigation}"
+        const val composeNavigationKsp = "io.github.raamcosta.compose-destinations:ksp:${Versions.composeNavigation}"
     }
 
     object Testing {
