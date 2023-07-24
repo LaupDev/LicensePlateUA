@@ -19,8 +19,9 @@ object Dependencies {
 
     object Google {
         const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
-        const val hiltCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltCompose}"
         const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+        const val hiltCompose = "androidx.hilt:hilt-navigation-compose:${Versions.hiltCompose}"
+        const val hiltComposeCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltCompose}"
     }
 
     object Kotlin {
@@ -35,6 +36,8 @@ object Dependencies {
 
         const val composeNavigation = "io.github.raamcosta.compose-destinations:core:${Versions.composeNavigation}"
         const val composeNavigationKsp = "io.github.raamcosta.compose-destinations:ksp:${Versions.composeNavigation}"
+
+        const val metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:${Versions.metadata}"
     }
 
     object Testing {

@@ -75,19 +75,22 @@ dependencies {
 
     //Retrofit
     implementation (Dependencies.Other.retrofit)
-    implementation(Dependencies.Other.retrofitMoshi)
+    implementation (Dependencies.Other.retrofitMoshi)
 
     //Picasso
     implementation (Dependencies.Other.picasso)
 
     //Hilt
-    implementation(Dependencies.Google.hilt)
-    implementation(Dependencies.Google.hiltCompose)
-    kapt(Dependencies.Google.hiltCompiler)
+    implementation (Dependencies.Google.hilt)
+    implementation (Dependencies.Google.hiltCompose)
+    kapt (Dependencies.Google.hiltCompiler)
+    kapt (Dependencies.Google.hiltComposeCompiler)
 
     //Navigation
-    implementation(Dependencies.Other.composeNavigation)
-    ksp(Dependencies.Other.composeNavigationKsp)
+    implementation (Dependencies.Other.composeNavigation)
+    ksp (Dependencies.Other.composeNavigationKsp)
+
+    kapt (Dependencies.Other.metadata)
 
     testImplementation (Dependencies.Testing.jUnit)
     testImplementation (Dependencies.Testing.room)
