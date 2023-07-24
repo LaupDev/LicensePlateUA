@@ -1,7 +1,7 @@
 object Versions {
     const val gradlePlugin = "8.0.2"
     const val kotlinAndroid = "1.9.0"
-    const val kotlinCompilerExtension = "1.4.3"
+    const val kotlinCompilerExtension = "1.5.0"
 
     //AndroidX
     const val compose = "1.3.2"
@@ -13,7 +13,7 @@ object Versions {
     const val fragmentKtx = "1.5.5"
 
     //Google
-    const val hilt = "2.44"
+    const val hilt = "2.47"
     const val hiltCompose = "1.0.0"
     const val ksp = "1.9.0-1.0.12"
 
