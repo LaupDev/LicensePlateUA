@@ -12,9 +12,9 @@ import javax.inject.Inject
 class GetLicensePlateInfoUseCaseImpl @Inject constructor(
     private val licensePlatesRepository: LicensePlatesRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : GetLicensePlateInfoUseCase {
+) {
 
-    override fun invoke(licensePlate: String): Flow<Resource<LicensePlateInfo>> {
+    operator fun invoke(licensePlate: String): Flow<Resource<LicensePlateInfo>> {
         return licensePlatesRepository.getLicensePlateInfo(licensePlate).flowOn(dispatcher)
     }
 }

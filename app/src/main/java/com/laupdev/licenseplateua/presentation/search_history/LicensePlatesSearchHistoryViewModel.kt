@@ -2,7 +2,7 @@ package com.laupdev.licenseplateua.presentation.search_history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.laupdev.licenseplateua.domain.usecases.GetLicensePlatesSearchHistoryUseCase
+import com.laupdev.licenseplateua.domain.usecases.GetLicensePlatesSearchHistoryUseCaseImpl
 import com.laupdev.licenseplateua.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LicensePlatesSearchHistoryViewModel @Inject constructor(
-    private val getLicensePlatesSearchHistoryUseCase: GetLicensePlatesSearchHistoryUseCase
+    private val getLicensePlatesSearchHistoryUseCase: GetLicensePlatesSearchHistoryUseCaseImpl
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<LicensePlatesSearchHistoryUiState>(LicensePlatesSearchHistoryUiState.Success(emptyList()))

@@ -10,10 +10,9 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetLicensePlatesSearchHistoryUseCaseImpl @Inject constructor(
-    private val licensePlatesRepository: LicensePlatesRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : GetLicensePlatesSearchHistoryUseCase {
-    override fun invoke(): Flow<Resource<List<LicensePlateMainInfo>>> {
-        return licensePlatesRepository.getLicensePlatesSearchHistory().flowOn(dispatcher)
+    private val licensePlatesRepository: LicensePlatesRepository
+) {
+    operator fun invoke(): Flow<Resource<List<LicensePlateMainInfo>>> {
+        return licensePlatesRepository.getLicensePlatesSearchHistory()
     }
 }
