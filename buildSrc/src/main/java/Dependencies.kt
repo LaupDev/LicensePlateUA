@@ -32,7 +32,8 @@ object Dependencies {
         const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
         const val retrofitMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofitMoshi}"
 
-        const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
+        const val coil = "io.coil-kt:coil:${Versions.coil}"
+        const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
 
         const val composeNavigation = "io.github.raamcosta.compose-destinations:core:${Versions.composeNavigation}"
         const val composeNavigationKsp = "io.github.raamcosta.compose-destinations:ksp:${Versions.composeNavigation}"

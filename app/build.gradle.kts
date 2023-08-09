@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
 }
@@ -49,10 +48,6 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     implementation (Dependencies.AndroidX.activityCompose)
     implementation (Dependencies.AndroidX.composeUi)
@@ -71,26 +66,27 @@ dependencies {
     implementation (Dependencies.AndroidX.Room.runtime)
     implementation (Dependencies.AndroidX.Room.ktx)
     annotationProcessor (Dependencies.AndroidX.Room.compiler)
-    kapt (Dependencies.AndroidX.Room.compiler)
+    ksp (Dependencies.AndroidX.Room.compiler)
 
     //Retrofit
     implementation (Dependencies.Other.retrofit)
     implementation (Dependencies.Other.retrofitMoshi)
 
-    //Picasso
-    implementation (Dependencies.Other.picasso)
+    //Coil
+    implementation (Dependencies.Other.coil)
+    implementation (Dependencies.Other.coilCompose)
 
     //Hilt
     implementation (Dependencies.Google.hilt)
     implementation (Dependencies.Google.hiltCompose)
-    kapt (Dependencies.Google.hiltCompiler)
-    kapt (Dependencies.Google.hiltComposeCompiler)
+    ksp (Dependencies.Google.hiltCompiler)
+    ksp (Dependencies.Google.hiltComposeCompiler)
 
     //Navigation
     implementation (Dependencies.Other.composeNavigation)
     ksp (Dependencies.Other.composeNavigationKsp)
 
-    kapt (Dependencies.Other.metadata)
+    ksp (Dependencies.Other.metadata)
 
     testImplementation (Dependencies.Testing.jUnit)
     testImplementation (Dependencies.Testing.room)
