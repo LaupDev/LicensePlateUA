@@ -27,7 +27,7 @@ object AppModule {
                 original.newBuilder()
                     .header("X-Api-Key", LicensePlateApi.API_KEY)
                     .header("Accept", "application/json\\r\\n")
-                    .method(original.method(), original.body())
+                    .method(original.method, original.body)
                     .build()
             }
             chain.proceed(request)

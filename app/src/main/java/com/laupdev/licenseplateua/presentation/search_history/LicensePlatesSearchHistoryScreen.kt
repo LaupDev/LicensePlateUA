@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,8 @@ fun LicensePlatesSearchHistoryScreen(
     viewModel: LicensePlatesSearchHistoryViewModel = hiltViewModel()
 ) {
     var text by remember { mutableStateOf("") }
+
+    val state = viewModel.uiState.collectAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -69,9 +72,20 @@ fun LicensePlatesSearchHistoryScreen(
             ) {
 
             }
-            LazyColumn() {
+            when (val currentsState = state.value) {
+                is LicensePlatesSearchHistoryUiState.Success -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(currentsState.licensePlatesList.size) {index ->
 
+                        }
+                    }
+                }
+                is LicensePlatesSearchHistoryUiState.Error -> TODO()
+                is LicensePlatesSearchHistoryUiState.Loading -> TODO()
             }
+
         }
     }
 }
