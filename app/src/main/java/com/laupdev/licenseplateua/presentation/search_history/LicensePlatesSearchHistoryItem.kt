@@ -1,6 +1,5 @@
 package com.laupdev.licenseplateua.presentation.search_history
 
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,22 +41,22 @@ fun LicensePlatesSearchHistoryItem(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        )
+            defaultElevation = 4.dp
+        ),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
         ) {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .weight(1f)) {
+                .weight(1.5f)) {
                 AsyncImage(
                     model = item.carPhotoUrl,
                     placeholder = painterResource(R.drawable.no_image_placeholder),
                     contentDescription = item.carVendor + "" + item.carModel,
-                    alignment = Alignment.CenterStart,
+                    alignment = Alignment.Center,
                     contentScale = ContentScale.FillHeight,
                     modifier = Modifier
                         .fillMaxHeight()
@@ -70,6 +69,7 @@ fun LicensePlatesSearchHistoryItem(
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(1f)
+                    .padding(top = 12.dp, bottom = 12.dp, end = 12.dp)
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -101,9 +101,9 @@ fun LicensePlatesSearchHistoryItem(
                 }
                 Text(
                     text = item.plateNumber,
-                    fontFamily = FontFamily.Monospace,
+                    fontFamily = FontFamily.SansSerif,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
@@ -125,10 +125,6 @@ fun LicensePlatesSearchHistoryItemPreview() {
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
-//            .combinedClickable(
-//                onClick = {}, //Todo navigate to full info screen
-//                onLongClick = {} //Todo select
-//            ),
+            .height(180.dp)
     )
 }
