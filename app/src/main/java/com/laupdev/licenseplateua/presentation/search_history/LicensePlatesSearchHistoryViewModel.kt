@@ -2,6 +2,7 @@ package com.laupdev.licenseplateua.presentation.search_history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.laupdev.licenseplateua.domain.model.LicensePlateMainInfo
 import com.laupdev.licenseplateua.domain.usecases.GetLicensePlatesSearchHistoryUseCaseImpl
 import com.laupdev.licenseplateua.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +16,8 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
     private val getLicensePlatesSearchHistoryUseCase: GetLicensePlatesSearchHistoryUseCaseImpl
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<LicensePlatesSearchHistoryUiState>(LicensePlatesSearchHistoryUiState.Success(emptyList()))
-    val uiState: StateFlow<LicensePlatesSearchHistoryUiState>
+    private val _uiState = MutableStateFlow<Resource<List<LicensePlateMainInfo>>>(Resource.Loading(isLoading = true))
+    val uiState: StateFlow<Resource<List<LicensePlateMainInfo>>>
         get() = _uiState
 
     init {
@@ -28,13 +29,13 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
             getLicensePlatesSearchHistoryUseCase().collect {
                 when (it) {
                     is Resource.Success -> {
-                        _uiState.value = LicensePlatesSearchHistoryUiState.Success(licensePlatesList = it.data)
+                        _uiState.value = Resource.Success(data = it.data)
                     }
                     is Resource.Error -> {
-                        _uiState.value = LicensePlatesSearchHistoryUiState.Error(exception = it.exception)
+                        _uiState.value = Resource.Error(exception = it.exception)
                     }
                     is Resource.Loading -> {
-                        _uiState.value = LicensePlatesSearchHistoryUiState.Loading(isLoading = it.isLoading)
+                        _uiState.value = Resource.Loading(isLoading = it.isLoading)
                     }
                 }
             }

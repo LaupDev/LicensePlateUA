@@ -1,7 +1,7 @@
 package com.laupdev.licenseplateua.presentation.search_history
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarColors
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.laupdev.licenseplateua.util.Resource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -82,29 +82,30 @@ fun LicensePlatesSearchHistoryScreen(
 
             }
             when (val currentsState = state.value) {
-                is LicensePlatesSearchHistoryUiState.Success -> {
+                is Resource.Success -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(start = 16.dp, top = 100.dp, end = 16.dp, bottom = 16.dp)
                     ) {
-                        items(currentsState.licensePlatesList.size) {index ->
-                            val licensePlateMainInfo = currentsState.licensePlatesList[index]
+                        val licensePlatesList = currentsState.data
+                        items(licensePlatesList.size) {index ->
+                            val licensePlateMainInfo = licensePlatesList[index]
                             LicensePlatesSearchHistoryItem(
                                 item = licensePlateMainInfo,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(180.dp)
                             )
-                            if (index < currentsState.licensePlatesList.size - 1) {
+                            if (index < licensePlatesList.size - 1) {
                                 Spacer(modifier = Modifier.height(22.dp))
                             }
                         }
                     }
                 }
-                is LicensePlatesSearchHistoryUiState.Error -> {
+                is Resource.Error -> {
 
                 }
-                is LicensePlatesSearchHistoryUiState.Loading -> {
+                is Resource.Loading -> {
 
                 }
             }
