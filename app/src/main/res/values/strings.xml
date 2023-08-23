@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">License Plate UA</string>
+
+    <string name="vendor">Марка:</string>
+    <string name="model">Модель:</string>
+    <string name="year">Рік:</string>
+    <string name="region">Регіон</string>
+    <string name="last_record">Останній запис</string>
+    <string name="date_of_registration">Дата реєстрації</string>
+    <string name="made_in_department">Відділ</string>
+    <string name="record">Операція</string>
+    <string name="color">Колір</string>
+    <string name="address">Адрес</string>
+    <string name="is_stolen">Розшук</string>
+    <string name="stolen">Перебуває у розшуку</string>
+    <string name="not_stolen">Не перебуває у розшуку</string>
 </resources>

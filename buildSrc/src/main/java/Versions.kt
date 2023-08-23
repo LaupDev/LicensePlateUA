@@ -6,7 +6,7 @@ object Versions {
     //AndroidX
     const val compose = "1.3.2"
     const val activityCompose = "1.6.1"
-    const val material = "1.2.0-alpha04"
+    const val material = "1.2.0-alpha05"
     const val room = "2.5.2"
     const val coreKtx = "1.10.1"
     const val lifecycleKtx = "2.5.1"
