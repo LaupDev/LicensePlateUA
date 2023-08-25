@@ -34,7 +34,6 @@ class LicensePlatesRepositoryImpl @Inject constructor(
                     emit(Resource.Success(data = licensePlateInfo))
                     licensePlatesDatabase.licensePlatesDao()
                         .insertLicensePlate(licensePlateInfo = licensePlateInfo.toLicensePlateMainInfoEntity()) // TODO: Move caching out of this function
-                    emit(Resource.Loading(isLoading = false))
                 }
             } else {
                 val errorMessage = licensePlateInfoResponse.errorBody()?.string() ?: "Undefined error"
