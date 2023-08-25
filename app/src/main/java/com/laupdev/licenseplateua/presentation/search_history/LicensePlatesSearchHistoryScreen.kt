@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.laupdev.licenseplateua.presentation.destinations.LicensePlateInfoScreenDestination
 import com.laupdev.licenseplateua.util.Resource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -59,7 +60,12 @@ fun LicensePlatesSearchHistoryScreen(
                 onQueryChange = {
                     text = it
                 },
-                onSearch = {
+                onSearch = { query ->
+                    navigator.navigate(
+                        LicensePlateInfoScreenDestination(
+                            licensePlate = query
+                        )
+                    )
                 },
                 active = false,
                 onActiveChange = {
@@ -95,6 +101,13 @@ fun LicensePlatesSearchHistoryScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(180.dp)
+                                    .clickable {
+                                        navigator.navigate(
+                                            LicensePlateInfoScreenDestination(
+                                                licensePlate = licensePlateMainInfo.plateNumber
+                                            )
+                                        )
+                                    }
                             )
                             if (index < licensePlatesList.size - 1) {
                                 Spacer(modifier = Modifier.height(22.dp))
