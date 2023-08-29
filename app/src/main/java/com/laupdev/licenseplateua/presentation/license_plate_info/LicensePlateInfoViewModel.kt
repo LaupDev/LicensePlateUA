@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.laupdev.licenseplateua.domain.model.LicensePlateInfo
 import com.laupdev.licenseplateua.domain.usecases.GetLicensePlateInfoUseCaseImpl
+import com.laupdev.licenseplateua.domain.usecases.SaveOrUpdateLicensePlateMainInfoToDatabaseUseCase
 import com.laupdev.licenseplateua.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LicensePlateInfoViewModel @Inject constructor(
     private val savedStatesHandle: SavedStateHandle,
-    private val getLicensePlateInfoUseCaseImpl: GetLicensePlateInfoUseCaseImpl
+    private val getLicensePlateInfoUseCaseImpl: GetLicensePlateInfoUseCaseImpl,
+    private val saveOrUpdateLicensePlateMainInfoToDatabaseUseCase: SaveOrUpdateLicensePlateMainInfoToDatabaseUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<Resource<LicensePlateInfo>>(Resource.Loading(isLoading = true))
@@ -35,6 +37,7 @@ class LicensePlateInfoViewModel @Inject constructor(
                 when(it) {
                     is Resource.Success -> {
                         _uiState.value = Resource.Success(data = it.data)
+                        saveOrUpdateLicensePlateMainInfoToDatabaseUseCase.invoke(it.data)
                     }
                     is Resource.Error -> {
                         _uiState.value = Resource.Error(exception = it.exception)

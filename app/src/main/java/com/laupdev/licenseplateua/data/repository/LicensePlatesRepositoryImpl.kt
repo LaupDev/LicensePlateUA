@@ -32,8 +32,7 @@ class LicensePlatesRepositoryImpl @Inject constructor(
                     emit(Resource.Error(exception = Exception("License plate info is empty")))
                 } else {
                     emit(Resource.Success(data = licensePlateInfo))
-                    licensePlatesDatabase.licensePlatesDao()
-                        .insertLicensePlate(licensePlateInfo = licensePlateInfo.toLicensePlateMainInfoEntity()) // TODO: Move caching out of this function
+
                 }
             } else {
                 val errorMessage = licensePlateInfoResponse.errorBody()?.string() ?: "Undefined error"
@@ -51,9 +50,26 @@ class LicensePlatesRepositoryImpl @Inject constructor(
                     emit(Resource.Error(exception = Exception(exception)))
                 }
                 .collect {
-                    emit(Resource.Success(it.map { licensePlateMainInfoEntity -> licensePlateMainInfoEntity.toLicensePlateMainInfo() }))
+                    emit(Resource.Success(it.map { licensePlateMainInfoEntity -> licensePlateMainInfoEntity.toLicensePlateMainInfo() }.reversed()))
                 }
             emit(Resource.Loading(isLoading = false))
         }
     }
+
+    override fun insertLicensePlateMainInfoToDatabase(licensePlateInfo: LicensePlateInfo): Long {
+        return licensePlatesDatabase.licensePlatesDao()
+            .insertLicensePlateInfo(licensePlateInfo = licensePlateInfo.toLicensePlateMainInfoEntity())
+    }
+
+    override fun updateLicensePlateMainInfoInDatabase(licensePlateInfo: LicensePlateInfo) {
+        licensePlatesDatabase.licensePlatesDao()
+            .updateLicensePlateInfo(licensePlateInfo = licensePlateInfo.toLicensePlateMainInfoEntity())
+    }
+
+    override fun getLicensePlateInfoByPlateNumber(plateNumber: String): LicensePlateMainInfo? {
+        return licensePlatesDatabase.licensePlatesDao()
+            .getLicensePlateInfoByPlateNumber(plateNumber)?.toLicensePlateMainInfo()
+    }
+
+
 }

@@ -10,4 +10,10 @@ interface LicensePlatesRepository {
     fun getLicensePlateInfo(licensePlate: String): Flow<Resource<LicensePlateInfo>>
 
     fun getLicensePlatesSearchHistory(): Flow<Resource<List<LicensePlateMainInfo>>>
+
+    fun insertLicensePlateMainInfoToDatabase(licensePlateInfo: LicensePlateInfo): Long
+
+    fun updateLicensePlateMainInfoInDatabase(licensePlateInfo: LicensePlateInfo)
+
+    fun getLicensePlateInfoByPlateNumber(plateNumber: String): LicensePlateMainInfo?
 }
