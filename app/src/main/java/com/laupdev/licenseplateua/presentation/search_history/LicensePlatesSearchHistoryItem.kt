@@ -51,7 +51,7 @@ fun LicensePlatesSearchHistoryItem(
         ) {
             Box(modifier = Modifier
                 .fillMaxSize()
-                .weight(1.5f)) {
+                .weight(1.4f)) {
                 AsyncImage(
                     model = item.carPhotoUrl,
                     placeholder = painterResource(R.drawable.no_image_placeholder),

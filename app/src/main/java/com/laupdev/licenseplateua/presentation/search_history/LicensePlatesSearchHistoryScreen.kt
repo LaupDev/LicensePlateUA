@@ -35,7 +35,7 @@ import com.laupdev.licenseplateua.util.Resource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Destination(start = true)
 fun LicensePlatesSearchHistoryScreen(
@@ -52,7 +52,6 @@ fun LicensePlatesSearchHistoryScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .consumeWindowInsets(it)
                 .padding(it),
         ) {
             SearchBar(
