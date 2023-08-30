@@ -25,6 +25,7 @@ object Versions {
     const val retrofit = "2.9.0"
     const val composeNavigation = "1.9.50"
     const val metadata = "0.7.0"
+    const val timber = "5.0.1"
     const val coil = "2.4.0"
 
     //Test Libs

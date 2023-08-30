@@ -82,6 +82,9 @@ dependencies {
     ksp (Dependencies.Google.hiltCompiler)
     ksp (Dependencies.Google.hiltComposeCompiler)
 
+    //Timber
+    implementation (Dependencies.Other.timber)
+
     //Navigation
     implementation (Dependencies.Other.composeNavigation)
     ksp (Dependencies.Other.composeNavigationKsp)

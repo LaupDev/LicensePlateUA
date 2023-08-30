@@ -39,6 +39,8 @@ object Dependencies {
         const val composeNavigationKsp = "io.github.raamcosta.compose-destinations:ksp:${Versions.composeNavigation}"
 
         const val metadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:${Versions.metadata}"
+
+        const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     }
 
     object Testing {
