@@ -14,4 +14,7 @@
     <string name="is_stolen">Розшук</string>
     <string name="stolen">Перебуває у розшуку</string>
     <string name="not_stolen">Не перебуває у розшуку</string>
+    <string name="ok">Зрозуміло</string>
+    <string name="wrong_plate_number_format_title">Не вірний номер</string>
+    <string name="wrong_plate_number_format_desc">Формат номеру має бути XX0000XX</string>
 </resources>

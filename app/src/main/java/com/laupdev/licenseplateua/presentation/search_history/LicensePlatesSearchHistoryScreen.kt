@@ -2,10 +2,8 @@ package com.laupdev.licenseplateua.presentation.search_history
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,7 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,17 +21,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.laupdev.licenseplateua.R
 import com.laupdev.licenseplateua.presentation.destinations.LicensePlateInfoScreenDestination
-import com.laupdev.licenseplateua.util.Resource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -42,9 +39,8 @@ fun LicensePlatesSearchHistoryScreen(
     navigator: DestinationsNavigator,
     viewModel: LicensePlatesSearchHistoryViewModel = hiltViewModel()
 ) {
-    var text by remember { mutableStateOf("") }
 
-    val state = viewModel.uiState.collectAsState()
+    val state = viewModel.state
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -55,16 +51,26 @@ fun LicensePlatesSearchHistoryScreen(
                 .padding(it),
         ) {
             SearchBar(
-                query = text,
-                onQueryChange = {
-                    text = it
+                query = state.searchQuery,
+                onQueryChange = {query ->
+                    // TODO: Implement search filter
+                    viewModel.onEvent(
+                        LicensePlatesSearchHistoryEvent.OnSearchQueryChange(query = query)
+                    )
                 },
                 onSearch = { query ->
-                    navigator.navigate(
-                        LicensePlateInfoScreenDestination(
-                            licensePlate = query
+                    if (viewModel.isValidPlateNumber(query)) {
+                        navigator.navigate(
+                            LicensePlateInfoScreenDestination(
+                                licensePlate = query
+                            )
                         )
-                    )
+                        viewModel.onEvent(
+                            LicensePlatesSearchHistoryEvent.OnSearchQueryChange(query = "")
+                        )
+                    } else {
+                        viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnShowPlateNumberIsNotValidDialog)
+                    }
                 },
                 active = false,
                 onActiveChange = {
@@ -86,42 +92,59 @@ fun LicensePlatesSearchHistoryScreen(
             ) {
 
             }
-            when (val currentsState = state.value) {
-                is Resource.Success -> {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(start = 16.dp, top = 100.dp, end = 16.dp, bottom = 16.dp)
-                    ) {
-                        val licensePlatesList = currentsState.data
-                        items(licensePlatesList.size) {index ->
-                            val licensePlateMainInfo = licensePlatesList[index]
-                            LicensePlatesSearchHistoryItem(
-                                item = licensePlateMainInfo,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(180.dp)
-                                    .clickable {
-                                        navigator.navigate(
-                                            LicensePlateInfoScreenDestination(
-                                                licensePlate = licensePlateMainInfo.plateNumber
-                                            )
+            if (state.licensePlates.isNotEmpty()) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(start = 16.dp, top = 100.dp, end = 16.dp, bottom = 16.dp)
+                ) {
+                    val licensePlatesList = state.licensePlates
+                    items(licensePlatesList.size) {index ->
+                        val licensePlateMainInfo = licensePlatesList[index]
+                        LicensePlatesSearchHistoryItem(
+                            item = licensePlateMainInfo,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(180.dp)
+                                .clickable {
+                                    navigator.navigate(
+                                        LicensePlateInfoScreenDestination(
+                                            licensePlate = licensePlateMainInfo.plateNumber
                                         )
-                                    }
-                            )
-                            if (index < licensePlatesList.size - 1) {
-                                Spacer(modifier = Modifier.height(22.dp))
-                            }
+                                    )
+                                }
+                        )
+                        if (index < licensePlatesList.size - 1) {
+                            Spacer(modifier = Modifier.height(22.dp))
                         }
                     }
                 }
-                is Resource.Error -> {
-
-                }
-                is Resource.Loading -> {
-
-                }
             }
-
+            // TODO: Handle errors
+        }
+        if (state.shouldOpenAlertDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnCloseDialog)
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnCloseDialog)
+                        }
+                    ) {
+                        Text(text = stringResource(id = R.string.ok))
+                    }
+                },
+                icon = {
+                    Icon(imageVector = Icons.Default.Info, contentDescription = null)
+                },
+                title = {
+                    Text(text = stringResource(id = R.string.wrong_plate_number_format_title))
+                },
+                text = {
+                    Text(text = stringResource(id = R.string.wrong_plate_number_format_desc))
+                }
+            )
         }
     }
 }
