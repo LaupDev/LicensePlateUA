@@ -24,21 +24,26 @@ class LicensePlatesRepositoryImpl @Inject constructor(
     override fun getLicensePlateInfo(licensePlate: String): Flow<Resource<LicensePlateInfo>> {
         return flow {
             emit(Resource.Loading(isLoading = true))
-            val licensePlateInfoResponse = api.getLicensePlateInfoByLicensePlate(licensePlate = licensePlate)
-            if (licensePlateInfoResponse.isSuccessful) {
-                val licensePlateInfo = licensePlateInfoResponse.body()?.toLicensePlateInfo()
+            try {
+                val licensePlateInfoResponse = api.getLicensePlateInfoByLicensePlate(licensePlate = licensePlate)
+                if (licensePlateInfoResponse.isSuccessful) {
+                    val licensePlateInfo = licensePlateInfoResponse.body()?.toLicensePlateInfo()
 
-                if (licensePlateInfo == null) {
-                    emit(Resource.Error(exception = Exception("License plate info is empty")))
+                    if (licensePlateInfo == null) {
+                        emit(Resource.Error(exception = Exception("License plate info is empty")))
+                    } else {
+                        emit(Resource.Success(data = licensePlateInfo))
+
+                    }
                 } else {
-                    emit(Resource.Success(data = licensePlateInfo))
-
+                    val errorMessage = licensePlateInfoResponse.errorBody()?.string() ?: "Undefined error"
+                    licensePlateInfoResponse.errorBody()?.close()
+                    emit(Resource.Error(exception = Exception(errorMessage)))
                 }
-            } else {
-                val errorMessage = licensePlateInfoResponse.errorBody()?.string() ?: "Undefined error"
-                licensePlateInfoResponse.errorBody()?.close()
-                emit(Resource.Error(exception = Exception(errorMessage))) //Todo: Handle all possible error codes
+            } catch (error: Exception) {
+                emit(Resource.Error(exception = Exception("Undefined error")))
             }
+
         }
     }
 
