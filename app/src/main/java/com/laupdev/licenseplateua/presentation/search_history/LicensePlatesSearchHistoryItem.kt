@@ -54,13 +54,15 @@ fun LicensePlatesSearchHistoryItem(
                 .weight(1.4f)) {
                 AsyncImage(
                     model = item.carPhotoUrl,
-                    placeholder = painterResource(R.drawable.no_image_placeholder),
                     contentDescription = item.carVendor + "" + item.carModel,
-                    alignment = Alignment.Center,
-                    contentScale = ContentScale.FillHeight,
                     modifier = Modifier
                         .fillMaxHeight()
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(RoundedCornerShape(16.dp)),
+                    placeholder = painterResource(R.drawable.no_image_placeholder),
+                    error = painterResource(R.drawable.no_image_placeholder),
+                    fallback = painterResource(R.drawable.no_image_placeholder),
+                    alignment = Alignment.Center,
+                    contentScale = ContentScale.FillHeight
                 )
             }
             Column(
