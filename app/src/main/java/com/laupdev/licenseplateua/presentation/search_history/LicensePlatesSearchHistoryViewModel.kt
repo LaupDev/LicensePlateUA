@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.laupdev.licenseplateua.domain.model.LicensePlateMainInfo
 import com.laupdev.licenseplateua.domain.usecases.GetLicensePlatesSearchHistoryUseCaseImpl
 import com.laupdev.licenseplateua.presentation.search_history.LicensePlatesSearchHistoryEvent.OnCloseDialog
 import com.laupdev.licenseplateua.presentation.search_history.LicensePlatesSearchHistoryEvent.OnSearchQueryChange
@@ -20,6 +21,7 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state by mutableStateOf(LicensePlatesSearchHistoryState())
+    private lateinit var initialLicensePlates: List<LicensePlateMainInfo>
 
     init {
         loadSearchHistory()
@@ -30,6 +32,7 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
             getLicensePlatesSearchHistoryUseCase().collect {
                 when (it) {
                     is Resource.Success -> {
+                        initialLicensePlates = it.data
                         state = state.copy(
                             licensePlates = it.data,
                             error = null
@@ -57,6 +60,7 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
         when(event) {
             is OnSearchQueryChange -> {
                 state = state.copy(
+                    licensePlates = initialLicensePlates.filter { it.plateNumber.contains(event.query) },
                     searchQuery = event.query
                 )
             }
