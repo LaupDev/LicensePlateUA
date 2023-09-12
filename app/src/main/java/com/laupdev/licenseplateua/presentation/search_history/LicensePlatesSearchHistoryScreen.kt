@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.laupdev.licenseplateua.R
+import com.laupdev.licenseplateua.domain.exception.PlateNumberIsNotValidException
 import com.laupdev.licenseplateua.presentation.destinations.LicensePlateInfoScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -53,7 +54,6 @@ fun LicensePlatesSearchHistoryScreen(
             SearchBar(
                 query = state.searchQuery,
                 onQueryChange = {query ->
-                    // TODO: Implement search filter
                     viewModel.onEvent(
                         LicensePlatesSearchHistoryEvent.OnSearchQueryChange(query = query)
                     )
@@ -69,7 +69,7 @@ fun LicensePlatesSearchHistoryScreen(
                             LicensePlatesSearchHistoryEvent.OnSearchQueryChange(query = "")
                         )
                     } else {
-                        viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnShowPlateNumberIsNotValidDialog)
+                        viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnPlateNumberIsNotValid)
                     }
                 },
                 active = false,
@@ -119,9 +119,20 @@ fun LicensePlatesSearchHistoryScreen(
                     }
                 }
             }
-            // TODO: Handle errors
         }
         if (state.shouldOpenAlertDialog) {
+            val title: String
+            val message: String
+            when (state.error) {
+                is PlateNumberIsNotValidException -> {
+                    title = stringResource(id = R.string.wrong_plate_number_format_title)
+                    message = stringResource(id = R.string.wrong_plate_number_format_message)
+                }
+                else -> {
+                    title = stringResource(id = R.string.default_error_title)
+                    message = stringResource(id = R.string.default_error_message)
+                }
+            }
             AlertDialog(
                 onDismissRequest = {
                     viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnCloseDialog)
@@ -139,10 +150,10 @@ fun LicensePlatesSearchHistoryScreen(
                     Icon(imageVector = Icons.Default.Info, contentDescription = null)
                 },
                 title = {
-                    Text(text = stringResource(id = R.string.wrong_plate_number_format_title))
+                    Text(text = title)
                 },
                 text = {
-                    Text(text = stringResource(id = R.string.wrong_plate_number_format_desc))
+                    Text(text = message)
                 }
             )
         }

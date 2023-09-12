@@ -5,11 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.laupdev.licenseplateua.domain.exception.PlateNumberIsNotValidException
 import com.laupdev.licenseplateua.domain.model.LicensePlateMainInfo
 import com.laupdev.licenseplateua.domain.usecases.GetLicensePlatesSearchHistoryUseCaseImpl
 import com.laupdev.licenseplateua.presentation.search_history.LicensePlatesSearchHistoryEvent.OnCloseDialog
 import com.laupdev.licenseplateua.presentation.search_history.LicensePlatesSearchHistoryEvent.OnSearchQueryChange
-import com.laupdev.licenseplateua.presentation.search_history.LicensePlatesSearchHistoryEvent.OnShowPlateNumberIsNotValidDialog
+import com.laupdev.licenseplateua.presentation.search_history.LicensePlatesSearchHistoryEvent.OnPlateNumberIsNotValid
 import com.laupdev.licenseplateua.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -64,15 +65,17 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
                     searchQuery = event.query
                 )
             }
-            is OnShowPlateNumberIsNotValidDialog -> {
+            is OnPlateNumberIsNotValid -> {
                 state = state.copy(
                     searchQuery = "",
-                    shouldOpenAlertDialog = true
+                    shouldOpenAlertDialog = true,
+                    error = PlateNumberIsNotValidException()
                 )
             }
             is OnCloseDialog -> {
                 state = state.copy(
-                    shouldOpenAlertDialog = false
+                    shouldOpenAlertDialog = false,
+                    error = null
                 )
             }
         }
