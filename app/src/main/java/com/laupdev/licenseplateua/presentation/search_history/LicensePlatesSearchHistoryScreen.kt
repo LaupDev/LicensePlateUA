@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -29,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.laupdev.licenseplateua.R
 import com.laupdev.licenseplateua.domain.exception.PlateNumberIsNotValidException
+import com.laupdev.licenseplateua.presentation.common.ErrorAlertDialog
 import com.laupdev.licenseplateua.presentation.destinations.LicensePlateInfoScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -133,28 +131,15 @@ fun LicensePlatesSearchHistoryScreen(
                     message = stringResource(id = R.string.default_error_message)
                 }
             }
-            AlertDialog(
-                onDismissRequest = {
+            ErrorAlertDialog(
+                onDismiss = {
                     viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnCloseDialog)
                 },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnCloseDialog)
-                        }
-                    ) {
-                        Text(text = stringResource(id = R.string.ok))
-                    }
+                onConfirmClicked = {
+                    viewModel.onEvent(LicensePlatesSearchHistoryEvent.OnCloseDialog)
                 },
-                icon = {
-                    Icon(imageVector = Icons.Default.Info, contentDescription = null)
-                },
-                title = {
-                    Text(text = title)
-                },
-                text = {
-                    Text(text = message)
-                }
+                title = title,
+                message = message
             )
         }
     }
