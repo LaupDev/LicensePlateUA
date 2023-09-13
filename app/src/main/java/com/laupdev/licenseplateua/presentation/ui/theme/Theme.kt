@@ -17,19 +17,23 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BlackMetal,
+    primary = GreySilver,
     onPrimary = Color.Black,
     primaryContainer = GreyLight,
     onPrimaryContainer = Color.Black,
-    background = GreySilver
+    background = GreySilver,
+    onSurface = BlackMetal,
+    onSurfaceVariant = BlackMetal
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BlackMetal,
+    primary = GreySilver,
     onPrimary = Color.Black,
     primaryContainer = GreyLight,
     onPrimaryContainer = Color.Black,
-    background = GreySilver
+    background = GreySilver,
+    onSurface = BlackMetal,
+    onSurfaceVariant = BlackMetal
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
