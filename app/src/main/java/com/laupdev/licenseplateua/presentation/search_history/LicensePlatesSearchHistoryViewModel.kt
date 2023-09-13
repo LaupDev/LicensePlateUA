@@ -67,6 +67,7 @@ class LicensePlatesSearchHistoryViewModel @Inject constructor(
             }
             is OnPlateNumberIsNotValid -> {
                 state = state.copy(
+                    licensePlates = initialLicensePlates,
                     searchQuery = "",
                     shouldOpenAlertDialog = true,
                     error = PlateNumberIsNotValidException()
